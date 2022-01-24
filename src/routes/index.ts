@@ -3,6 +3,7 @@ import { authenticateRoutes } from "./authenticate.routes";
 import { carsRoutes } from "./cars.routes";
 import { categoriesRoutes } from "./category.routes";
 import { especificationRoutes } from "./especification.routes";
+import { rentalRoutes } from "./reantal.routes";
 import { testRoutes } from "./test.routes";
 import { usersRoutes } from "./users.routes";
 
@@ -13,6 +14,7 @@ router.use(categoriesRoutes)
 router.use(especificationRoutes)
 router.use(usersRoutes)
 router.use(carsRoutes)
+router.use(rentalRoutes)
 router.use(testRoutes)
 
 

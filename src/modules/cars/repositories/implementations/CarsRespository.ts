@@ -2,11 +2,6 @@ import { Car } from "@modules/cars/entities/Car";
 import { createQueryBuilder, getRepository, Repository } from "typeorm";
 import { ICarsRepository, ICarsRepositoryDTO } from "../ICarsRepository";
 
-// interface IRequest {
-//     name?: string,
-//     category_id?: number,
-//     brand?: string
-// }
 
 class CarsRepository implements ICarsRepository {
 
