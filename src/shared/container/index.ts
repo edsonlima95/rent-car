@@ -11,6 +11,8 @@ import { CategoriesRespository } from '@modules/cars/repositories/implementation
 import { EspecificationsRepositories } from '@modules/cars/repositories/implementations/EspecificationsRepositories';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { CarsRepository } from '@modules/cars/repositories/implementations/CarsRespository';
+import { ICarImageRepository } from '@modules/cars/repositories/ICarImageRepository';
+import { CarImageRepository } from '@modules/cars/repositories/implementations/CarImageRepository';
 
 container.registerSingleton<ICategoriesRepository>
     ("CategoriesRepository", CategoriesRespository);
@@ -23,3 +25,6 @@ container.registerSingleton<IUsersRepository>
 
 container.registerSingleton<ICarsRepository>
     ("carsRepository", CarsRepository);
+
+container.registerSingleton<ICarImageRepository>
+    ("carsImageRepository", CarImageRepository);
