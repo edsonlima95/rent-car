@@ -21,10 +21,13 @@ class Car {
     license_plate: string;
 
     @Column()
-    brand?: string;
+    fine_amount: number;
 
     @Column()
-    available: true;
+    brand?: string;
+
+    @Column({default: true})
+    available: boolean;
 
     // Relacionamento Muitos par um ManyToOne.
     @ManyToOne(() => Category)

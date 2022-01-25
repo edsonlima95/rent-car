@@ -1,12 +1,14 @@
 import { AppError } from "@errors/AppError";
 import { container, inject, injectable } from "tsyringe";
-import { IRentalCarRepository } from "../repositories/IRentalCarRepository";
+import { IRentalCarRepository } from "../../repositories/IRentalCarRepository";
 
 import { IDateProvider } from "@shared/container/provider/IDateProvider";
-import { Rental } from "../entities/Rental";
+import { Rental } from "../../entities/Rental";
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 
 
 interface IRequest {
+    id?:number
     car_id: number
     user_id: number
     expected_return_date: Date
@@ -19,17 +21,20 @@ class RentalCarsUseCase {
         @inject("rentalCarRepository")
         private rentalCarRepository: IRentalCarRepository,
 
+        @inject("carsRepository")
+        private carsRepository: ICarsRepository,
+
         @inject("dateProvider")
         private dateProvide: IDateProvider
 
     ) { }
 
-    async execute({ car_id, user_id, expected_return_date }: IRequest): Promise<Rental> {
+    async execute({ car_id, user_id, expected_return_date, id }: IRequest): Promise<Rental> {
 
         // Verifica se o carro esta disponivel
-        const carUnavailable = await this.rentalCarRepository.findOpenRentalCarByCar(car_id)
+        const carUnavailable = await this.carsRepository.findById(car_id)
 
-        if (carUnavailable) {
+        if (!carUnavailable.available) {
             throw new AppError("Carro está indisponivel!")
         }
 
@@ -37,6 +42,7 @@ class RentalCarsUseCase {
         const userUnavailable = await this.rentalCarRepository.findOpenRentalCarByUser(user_id)
 
         if (userUnavailable) {
+            
             throw new AppError("O usuáro já possui um aluguel!")
         }
 
@@ -51,6 +57,9 @@ class RentalCarsUseCase {
         }
 
         const rental = await this.rentalCarRepository.create({ car_id, user_id, expected_return_date })
+
+
+        await this.carsRepository.updateAvailable(car_id, false)
     
         return rental
     }

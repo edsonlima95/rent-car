@@ -1,5 +1,5 @@
 import { CreateCarEspecificationController } from "@modules/cars/useCases/createCarEspecification/CreateCarEspecificationController";
-import { RentalCarsController } from "@modules/rental/useCases/RentalCarsController";
+import { RentalCarsController } from "@modules/rental/useCases/createRental/RentalCarsController";
 import { Router } from "express";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc"
