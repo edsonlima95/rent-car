@@ -10,6 +10,7 @@ class RentalCarRepository implements IRentalCarRepository {
         this.repository = getRepository(Rental)
     }
 
+
     async create({ car_id, user_id, expected_return_date, id, end_date, total }: IRentalCarDTO): Promise<Rental> {
 
         const rental = this.repository.create({ car_id, user_id, expected_return_date, id, end_date, total })
@@ -37,6 +38,10 @@ class RentalCarRepository implements IRentalCarRepository {
             where: { id: rental_id },
             relations: ['car', 'user']
         })
+    }
+
+    async getAllRentalsByUser(user_id: number): Promise<Rental[]> {
+        return  await this.repository.find({where: {user_id},relations:['car']})
     }
 
 }

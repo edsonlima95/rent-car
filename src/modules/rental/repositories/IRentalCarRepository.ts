@@ -15,7 +15,7 @@ interface IRentalCarRepository {
 
     findById(id: number):Promise<Rental>
 
-    // findOpenRentalCarByCar(car_id: number): Promise<Rental>
+    getAllRentalsByUser(user_id: number): Promise<Rental[]>
 
     findOpenRentalCarByUser(user_id: number): Promise<Rental>
 
