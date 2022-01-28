@@ -1,4 +1,4 @@
-import { CarImage } from "../entities/CarImage";
+import { CarImage } from "../models/CarImage"
 
 
 interface ICarImageRepository {

@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 import { Car } from "./Car";
 
 
-@Entity("image_car")
+@Entity("car_images")
 class CarImage {
 
     @PrimaryGeneratedColumn("increment")

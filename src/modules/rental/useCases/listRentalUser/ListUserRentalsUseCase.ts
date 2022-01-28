@@ -1,4 +1,3 @@
-import { AppError } from "@errors/AppError";
 import { Rental } from "@modules/rental/entities/Rental";
 import { IRentalCarRepository } from "@modules/rental/repositories/IRentalCarRepository";
 import { inject, injectable } from "tsyringe";

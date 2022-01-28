@@ -1,19 +1,18 @@
 import { Router } from "express";
-import { CreateEspecificationController } from "@modules/cars/useCases/createEspecification/CreateEspecificationController";
-import { ListEspecificationController } from "@modules/cars/useCases/listEspecification/ListEspecificationController";
+import { EspecificationController } from "@modules/cars/controllers/EspecificationController";
+import { authenticateMiddleware } from "middlewares/authentication";
 
 const especificationRoutes = Router();
 
 
-const createEspecificationController = new CreateEspecificationController();
-const listEspecificationController = new ListEspecificationController();
+const especificationController = new EspecificationController();
 
 
-especificationRoutes.get("/especifications", listEspecificationController.handle)
+especificationRoutes.get("/especifications",authenticateMiddleware, especificationController.index)
 
-// especificationRoutes.use(authenticateMiddleware)
+especificationRoutes.post("/especification",authenticateMiddleware ,especificationController.save);
 
-especificationRoutes.post("/especification", createEspecificationController.handle);
+especificationRoutes.put("/especification/:id", authenticateMiddleware, especificationController.save);
 
 
 export { especificationRoutes }

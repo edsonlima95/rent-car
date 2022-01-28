@@ -1,7 +1,13 @@
 
 import { inject, injectable } from "tsyringe";
-import { Car } from "@modules/cars/entities/Car";
+import { Car } from "@modules/cars/models/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
+
+interface IRequest {
+    name?: string,
+    brand?: string,
+    category_id?: number
+}
 
 @injectable()
 class ListAvailableCarsUseCase {
@@ -12,7 +18,7 @@ class ListAvailableCarsUseCase {
     ) { }
 
 
-    async execute(name?: string, category_id?: number, brand?: string):Promise<Car[]>{
+    async execute({name, category_id, brand }:IRequest):Promise<Car[]>{
 
         const cars = await this.carsRepository.findAvailables(name,category_id,brand);
 

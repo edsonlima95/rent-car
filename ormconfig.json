@@ -6,7 +6,7 @@
     "password": "",
     "database": "rentx",
     "charset": "utf8mb4",
-    "entities": ["./src/modules/**/entities/*.ts"],
+    "entities": ["./src/modules/**/models/*.ts"],
     "migrations": ["./src/database/migrations/*.ts"],
     "cli": {
         "migrationsDir": "./src/database/migrations/"

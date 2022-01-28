@@ -1,10 +1,9 @@
+import { adminVerify } from 'middlewares/adminVerify';
 import { Router } from "express";
 import multer from "multer";
 
-import { CreateCategoryController } from '@modules/cars/useCases/createCategory/CreateCategoryController';
-import { ListCategoryController } from '@modules/cars/useCases/listCategory/ListCategoryController';
-import { ImportCategoryController } from '@modules/cars/useCases/importCategory/ImportCategoryController';
 import { authenticateMiddleware } from "../middlewares/authentication";
+import { CategoryController } from "@modules/cars/controllers/CategoryController";
 
 const upload = multer({
     dest: "./tmp"
@@ -12,16 +11,14 @@ const upload = multer({
 
 const categoriesRoutes = Router();
 
-const createCategoryController = new CreateCategoryController();
-const listCategoryController = new ListCategoryController();
-const importCategoryController = new ImportCategoryController();
+const categoryController = new CategoryController();
 
-categoriesRoutes.post("/category", authenticateMiddleware ,createCategoryController.handle);
+categoriesRoutes.post("/category", authenticateMiddleware ,categoryController.save);
 
-categoriesRoutes.get("/categories", authenticateMiddleware ,listCategoryController.handle);
+categoriesRoutes.put("/category/:id", authenticateMiddleware ,categoryController.save);
 
-categoriesRoutes.post("/category/import", authenticateMiddleware ,upload.single("file"), importCategoryController.handle)
+categoriesRoutes.get("/categories", authenticateMiddleware ,categoryController.index);
 
-
+categoriesRoutes.post("/category/import", authenticateMiddleware ,upload.single("file"), categoryController.importFromCsv)
 
 export { categoriesRoutes }

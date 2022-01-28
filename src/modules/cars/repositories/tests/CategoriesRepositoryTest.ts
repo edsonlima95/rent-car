@@ -1,12 +1,12 @@
 
-import { Category } from "@modules/cars/entities/Category";
+import { Category } from "@modules/cars/models/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "../ICategoriesRepository";
 
 class CategoriesRepositoryTest implements ICategoriesRepository {
 
     private categories: Category[] = [];
 
-    async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+    async create({ name, description, id }: ICreateCategoryDTO): Promise<Category> {
 
         const category = new Category();
 
@@ -16,6 +16,8 @@ class CategoriesRepositoryTest implements ICategoriesRepository {
         })
 
         this.categories.push(category)
+
+        return category
 
     }
     async categoryByName(name: string): Promise<Category> {

@@ -1,5 +1,5 @@
 import { User } from "@modules/account/entities/User";
-import { Car } from "@modules/cars/entities/Car";
+import { Car } from "@modules/cars/models/Car";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 

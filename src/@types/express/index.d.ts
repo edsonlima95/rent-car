@@ -7,6 +7,7 @@ declare namespace Express {
         },
         file: {
             filename: string
-        }
+        },
+        files:[]
     } 
 }

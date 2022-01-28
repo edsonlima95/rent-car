@@ -1,5 +1,6 @@
+import { Especification } from "@modules/cars/models/Especification";
 import { getRepository, Repository } from "typeorm";
-import { Especification } from "../../entities/Especification";
+
 import { IEspecificationsDTO, IEspecificationsRepository } from "../IEspecificationsRepository";
 
 
@@ -10,7 +11,7 @@ class EspecificationsRepositories implements IEspecificationsRepository {
     public constructor() {
         this.repository = getRepository(Especification);
     }
-
+   
     async getEspecifications(): Promise<Especification[]> {
         const especifications = await this.repository.find();
         return especifications;
@@ -21,9 +22,10 @@ class EspecificationsRepositories implements IEspecificationsRepository {
         return especification;
     }
 
-    async create({ name, description }: IEspecificationsDTO): Promise<Especification> {
+    async save({ name, description, id }: IEspecificationsDTO): Promise<Especification> {
 
         const especification = await this.repository.create({
+            id,
             name,
             description
         });
@@ -32,12 +34,16 @@ class EspecificationsRepositories implements IEspecificationsRepository {
 
     }
 
+    async findById(id: number): Promise<Especification> {
+        const especification = await this.repository.findOne(id)
+        return especification
+    }
+
     async findByIds(especifications_id: number[]): Promise<Especification[]> {
 
         const especifications = await this.repository.findByIds(especifications_id)
 
         return especifications
-
     }
 
 }

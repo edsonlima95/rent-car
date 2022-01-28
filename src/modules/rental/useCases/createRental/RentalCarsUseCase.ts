@@ -1,5 +1,5 @@
 import { AppError } from "@errors/AppError";
-import { container, inject, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IRentalCarRepository } from "../../repositories/IRentalCarRepository";
 
 import { IDateProvider } from "@shared/container/provider/dateProvider/IDateProvider";

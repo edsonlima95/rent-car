@@ -1,5 +1,5 @@
+import { User } from '@modules/account/entities/User';
 import { getRepository, Repository } from "typeorm";
-import { User } from "@modules/account/entities/User";
 import { IUsersRepository, IUsersRepositoryDTO } from "../IUsersRepository";
 
 

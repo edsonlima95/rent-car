@@ -1,8 +1,8 @@
 import { AppError } from "@errors/AppError";
-import { Car } from "@modules/cars/entities/Car";
+import { Car } from "@modules/cars/models/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { IEspecificationsRepository } from "@modules/cars/repositories/IEspecificationsRepository";
-import { inject, injectable, injectAll } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
     car_id: number,
@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateCarEspecificationUseCase {
+class CarEspecificationsUseCase {
 
     constructor(
         @inject("carsRepository")
@@ -31,11 +31,11 @@ class CreateCarEspecificationUseCase {
 
         car.especifications = especifications
 
-        await this.carsRepository.create(car)
+        await this.carsRepository.save(car)
 
         return car
     }
 
 }
 
-export { CreateCarEspecificationUseCase }
+export { CarEspecificationsUseCase }

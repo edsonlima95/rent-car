@@ -1,4 +1,5 @@
-import { Car } from "@modules/cars/entities/Car";
+
+import { Car } from "@modules/cars/models/Car";
 import { createQueryBuilder, getRepository, Repository } from "typeorm";
 import { ICarsRepository, ICarsRepositoryDTO } from "../ICarsRepository";
 
@@ -12,15 +13,16 @@ class CarsRepository implements ICarsRepository {
         this.repository = getRepository(Car)
     }
  
-    async create({
+    async save({
         name,
         description,
         daily_rate,
         license_plate,
+        fine_amount,
         brand,
         category_id, especifications, id }: ICarsRepositoryDTO): Promise<Car> {
 
-        const car = this.repository.create({ name, description, daily_rate, license_plate, brand, category_id, especifications, id })
+        const car = this.repository.create({ name, description, daily_rate, license_plate, fine_amount, brand, category_id, especifications, id })
 
         return await this.repository.save(car)
 
@@ -50,12 +52,9 @@ class CarsRepository implements ICarsRepository {
 
     }
 
-    async findById(car_id: number): Promise<Car> {
-
-        const car = await this.repository.findOne(car_id)
-
+    async findById(id: number): Promise<Car> {
+        const car = await this.repository.findOne(id)
         return car
-
     }
 
     async updateAvailable(id: number, available: boolean): Promise<void> {
@@ -68,8 +67,6 @@ class CarsRepository implements ICarsRepository {
                                     .execute()
     
     }
-
-
 
 }
 
