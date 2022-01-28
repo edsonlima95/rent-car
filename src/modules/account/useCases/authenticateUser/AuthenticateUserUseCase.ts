@@ -6,7 +6,7 @@ import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import { UsersTokenRepository } from "@modules/account/repositories/implementatios/UsersTokenRepository";
 import auth from "@config/auth";
-import { IDateProvider } from "@shared/container/provider/IDateProvider";
+import { IDateProvider } from "@shared/container/provider/dateProvider/IDateProvider";
 
 interface IRequest {
     email: string,

@@ -16,11 +16,11 @@ const createCategoryController = new CreateCategoryController();
 const listCategoryController = new ListCategoryController();
 const importCategoryController = new ImportCategoryController();
 
-categoriesRoutes.post("/category", createCategoryController.handle);
+categoriesRoutes.post("/category", authenticateMiddleware ,createCategoryController.handle);
 
 categoriesRoutes.get("/categories", authenticateMiddleware ,listCategoryController.handle);
 
-categoriesRoutes.post("/category/import", upload.single("file"), importCategoryController.handle)
+categoriesRoutes.post("/category/import", authenticateMiddleware ,upload.single("file"), importCategoryController.handle)
 
 
 

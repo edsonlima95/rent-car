@@ -22,6 +22,10 @@ class DateProvider implements IDateProvider {
         return dayjs(end_date_utc).diff(start_date_utc, "hours")
     }
 
+    compareBefore(start_date: Date, end_date: Date):boolean{
+        return dayjs(start_date).isBefore(end_date)
+    }
+
     convertToUtc(date: Date): string {
         return dayjs(date).utc().local().format()
     }
@@ -32,6 +36,10 @@ class DateProvider implements IDateProvider {
 
     addDays(days: number): Date {
         return dayjs().add(days, "days").toDate()
+    }
+    
+    addHours(hour: number): Date {
+        return dayjs().add(hour, "hour").toDate()
     }
 }
 

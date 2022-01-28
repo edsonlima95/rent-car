@@ -1,13 +1,18 @@
 import auth from "@config/auth";
 import { AppError } from "@errors/AppError";
 import { IUserTokensRepository } from "@modules/account/repositories/IUserTokensRepository";
-import { IDateProvider } from "@shared/container/provider/IDateProvider";
+import { IDateProvider } from "@shared/container/provider/dateProvider/IDateProvider";
 import { sign, verify } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
 interface IPayload {
     sub: string
     email: string
+}
+
+interface IResponseToken {
+    newToken: string,
+    refresh_token: string
 }
 
 @injectable()
@@ -20,7 +25,7 @@ class UserRefreshTokenUseCase {
         private dateProvider: IDateProvider
     ) { }
 
-    async execute(token: string): Promise<string> {
+    async execute(token: string): Promise<IResponseToken> {
 
         // Decodifica as informações do token.
         const { email, sub } = verify(token, auth.secret_refresh_token) as IPayload
@@ -30,14 +35,19 @@ class UserRefreshTokenUseCase {
         const userToken = await this.usersTokenRepository.findTokenByUserIdAndToken(user_id, token)
 
         if (!userToken) {
-            throw new AppError("Refresh token não existe")
+            throw new AppError("Refresh token invalido")
         }
 
         //Deleta o token antigo.
         await this.usersTokenRepository.deleteById(userToken.id);
 
         // Cria o novo token
-        // Cria o refresh token que é salvo no banco
+         const newToken = sign({}, auth.secret_token, {
+            subject: String(user_id),
+            expiresIn: auth.expires_token,
+        });
+
+        // Cria o refresh token que é salvo no banco, para ser usado para recuperar o token
         const refresh_token = sign({ email }, auth.secret_refresh_token, {
             subject: String(user_id),
             expiresIn: auth.expires_refresh_token,
@@ -51,7 +61,10 @@ class UserRefreshTokenUseCase {
             expires_date
         })
 
-        return refresh_token
+        return {
+            newToken,
+            refresh_token
+        }
 
     }
 

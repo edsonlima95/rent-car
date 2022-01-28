@@ -20,21 +20,13 @@ async function authenticateMiddleware(req: Request, res: Response, next: NextFun
 
     try {
         // Verifica o token se é valido
-        const { sub } = verify(token, auth.secret_refresh_token) as ITokenSubject
-
-        const usersTokenRepository = new UsersTokenRepository();
+        const { sub } = verify(token, auth.secret_token) as ITokenSubject
 
         const user_id = parseInt(sub)
 
-        const user = await usersTokenRepository.findTokenByUserIdAndToken(user_id, token)
-        
-        if (!user) {
-            throw new AppError("Usuario não existe")
-        }
-
         // Retorna o id do usuario
         req.user = {
-            user_id: user.id
+            user_id: user_id
         }
 
         next()
