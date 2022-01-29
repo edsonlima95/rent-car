@@ -33,9 +33,6 @@ class EspecificationController {
         return res.send(especification);
     }
 
-    
-
-
 }
 
 export {EspecificationController}

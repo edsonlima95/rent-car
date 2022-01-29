@@ -1,15 +1,15 @@
-import { ResetUserPasswordController } from "@modules/account/useCases/resetPassword/ResetUserPasswordController";
-import { UsersPasswordForgotController } from "@modules/account/useCases/sendEmailForgotPassword/UsersPasswordForgotController";
+
+import { UsersContoller } from "@modules/account/controllers/UsersContoller";
 import { Router } from "express";
+import { authenticateMiddleware } from "middlewares/authentication";
 
 
 const passwordRoutes = Router();
 
-const usersPasswordForgotController = new UsersPasswordForgotController()
-const resetUserPasswordController = new ResetUserPasswordController()
+const usersContoller = new UsersContoller()
 
-passwordRoutes.post("/password/forgot",usersPasswordForgotController.handle)
+passwordRoutes.post("/password/forgot",authenticateMiddleware,usersContoller.forgotPassword)
 
-passwordRoutes.post("/password/reset",resetUserPasswordController.handle)
+passwordRoutes.post("/password/reset",authenticateMiddleware,usersContoller.resetPassword)
 
 export {passwordRoutes}

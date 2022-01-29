@@ -16,7 +16,7 @@ interface IResponseToken {
 }
 
 @injectable()
-class UserRefreshTokenUseCase {
+class RefreshTokenUseCase {
 
     constructor(
         @inject("usersTokenRepository")
@@ -55,7 +55,7 @@ class UserRefreshTokenUseCase {
 
         const expires_date = this.dateProvider.addDays(auth.expires_refresh__date_token)
 
-        await this.usersTokenRepository.create({
+        await this.usersTokenRepository.save({
             user_id: user_id,
             refresh_token,
             expires_date
@@ -71,4 +71,4 @@ class UserRefreshTokenUseCase {
 }
 
 
-export { UserRefreshTokenUseCase }
+export { RefreshTokenUseCase }

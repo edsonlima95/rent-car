@@ -8,7 +8,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { IEmailProvider } from '@shared/container/provider/emailProvider/IEmailProvider';
 
 @injectable()
-class UsersPasswordForgotUseCase {
+class ForgotPasswordUseCase {
 
     constructor(
         @inject("usersRepository")
@@ -36,7 +36,7 @@ class UsersPasswordForgotUseCase {
 
         const expires_date = this.dateProvoder.addHours(3)
 
-        await this.usersTokenRepository.create({ user_id: user.id, refresh_token, expires_date })
+        await this.usersTokenRepository.save({ user_id: user.id, refresh_token, expires_date })
 
         const variables = {
             name: user.email,
@@ -46,7 +46,6 @@ class UsersPasswordForgotUseCase {
         await this.emailProvider.sendEmail(email,"Recuperação de senha",variables,templatePath)
     }
 
-
 }
 
-export {UsersPasswordForgotUseCase}
+export {ForgotPasswordUseCase}

@@ -3,6 +3,13 @@ import { hash } from "bcrypt"
 import { IUsersRepository, IUsersRepositoryDTO } from "@modules/account/repositories/IUsersRepository"
 import { AppError } from "@errors/AppError"
 
+interface IRequest {
+    name: string,
+    email: string,
+    password: string,
+    drive_license: string,
+    id?:number
+}
 
 @injectable()
 class UsersUseCase {
@@ -17,21 +24,29 @@ class UsersUseCase {
         email,
         password,
         drive_license,
-    }: IUsersRepositoryDTO):Promise<void> {
+        id
+    }: IRequest):Promise<void> {
 
         const emailExists = await this.usersRepository.findByEmail(email)
 
-        if(emailExists){
+        if(emailExists && id == null){
             throw new AppError("Email already exists")
+        }
+
+        const userUpdate = await this.usersRepository.findById(id)
+
+        if(!userUpdate){
+            throw new AppError("Usuário não existe")
         }
 
         const passwordHash = await hash(password,8);
 
-        await this.usersRepository.create({
+        await this.usersRepository.save({
             name,
             email,
             password: passwordHash,
             drive_license,
+            id
         })
     }
 

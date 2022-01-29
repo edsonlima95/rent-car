@@ -1,3 +1,4 @@
+import { AppError } from '@errors/AppError';
 import { inject, injectable } from "tsyringe"
 import { IUsersRepository } from "@modules/account/repositories/IUsersRepository";
 import { deleteFile } from "util/deleFile";
@@ -19,7 +20,7 @@ class UpdateUsersAvatarUseCase {
     async execute({ user_id, avatar_file }: IRequest): Promise<void> {
 
         const user = await this.usersRepository.findById(user_id);
-        
+
         // Deleta o avatar antigo da pasta.
         if(user.avatar){
             await deleteFile(`./tmp/avatar/${user.avatar}`);
@@ -27,7 +28,7 @@ class UpdateUsersAvatarUseCase {
 
         user.avatar = avatar_file;
 
-        await this.usersRepository.create(user);
+        await this.usersRepository.save(user);
 
     }
 }

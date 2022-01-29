@@ -34,7 +34,7 @@ class CarsController {
 
     }
 
-    async availableCars(req: Request, res: Response): Promise<Response> {
+    async availableCar(req: Request, res: Response): Promise<Response> {
 
         const { name, category_id, brand } = req.query as IRequest
 

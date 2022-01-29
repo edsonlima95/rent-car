@@ -38,13 +38,6 @@ class AuthenticateUserUseCase {
 
         const user = await this.userRepository.findByEmail(email)
 
-        const { secret_token,
-            expires_token,
-            secret_refresh_token,
-            expires_refresh_token,
-            expires_refresh__date_token,
-        } = auth
-
         if (!user) {
             throw new AppError("E-mail ou password incorreto!", 401)
         }
@@ -57,20 +50,23 @@ class AuthenticateUserUseCase {
         }
 
         //Cria um token
-        const token = sign({}, secret_token, {
+        const token = sign({}, auth.secret_token, {
             subject: String(user.id),
-            expiresIn: expires_token,
+            expiresIn: auth.expires_token,
         });
 
-        // Cria o refresh token que é salvo no banco
-        const refresh_token = sign({ email }, secret_refresh_token, {
+        /**
+         * Cria o refresh token que é salvo no banco usado para gerar um novo token quando expirar
+         * geralmente o refresh token tem duração maior pois serve apenas para recuperação
+         * */ 
+        const refresh_token = sign({ email }, auth.secret_refresh_token, {
             subject: String(user.id),
-            expiresIn: expires_refresh_token,
+            expiresIn: auth.expires_refresh_token,
         });
 
-        const expires_date = this.dateProvider.addDays(expires_refresh__date_token)
+        const expires_date = this.dateProvider.addDays(auth.expires_refresh__date_token)
 
-        await this.usersTokenRepository.create({
+        await this.usersTokenRepository.save({
             user_id: user.id,
             refresh_token,
             expires_date

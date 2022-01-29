@@ -1,6 +1,6 @@
 
 import { IUsersRepository, IUsersRepositoryDTO } from "../IUsersRepository";
-import { User } from "@modules/account/entities/User";
+import { User } from "@modules/account/models/User";
 
 
 class UsersRespositoryTest implements IUsersRepository {

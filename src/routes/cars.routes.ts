@@ -4,8 +4,8 @@ import { adminVerify } from "middlewares/adminVerify";
 import { authenticateMiddleware } from "middlewares/authentication";
 
 
-import uploadConfig from "@config/upload";
 import multer from 'multer';
+import uploadConfig from "@config/upload";
 
 const carsRoutes = Router();
 
@@ -19,7 +19,7 @@ carsRoutes.post("/car", authenticateMiddleware, carsController.save)
 
 carsRoutes.put("/car/:id", authenticateMiddleware, carsController.save)
 
-carsRoutes.get("/cars/availables",authenticateMiddleware, carsController.availableCars)
+carsRoutes.get("/cars/availables",authenticateMiddleware, carsController.availableCar)
 
 carsRoutes.post("/cars/:id", authenticateMiddleware, uploadAvatar.array("files") ,carsController.uploadImages)
 

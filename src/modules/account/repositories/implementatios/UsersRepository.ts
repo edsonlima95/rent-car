@@ -1,4 +1,4 @@
-import { User } from '@modules/account/entities/User';
+import { User } from '@modules/account/models/User';
 import { getRepository, Repository } from "typeorm";
 import { IUsersRepository, IUsersRepositoryDTO } from "../IUsersRepository";
 
@@ -11,34 +11,34 @@ class UsersRepository implements IUsersRepository {
         this.repository = getRepository(User)
     }
 
-    async create({
+    async save({
         name,
         email,
         password,
         drive_license,
-        id,
-        avatar
-    }: IUsersRepositoryDTO): Promise < void> {
+        avatar,
+        id
+    }: IUsersRepositoryDTO): Promise<void> {
 
-    const user = this.repository.create({name, email, password, drive_license,id,avatar})
+        const user = this.repository.create({ name, email, password, drive_license, id, avatar })
 
         await this.repository.save(user)
 
-}
+    }
 
-    async findByEmail(email: string): Promise < User > {
+    async findByEmail(email: string): Promise<User> {
 
-    const user = await this.repository.findOne({ email })
+        const user = await this.repository.findOne({ email })
         return user;
 
-}
-    
-    async findById(id: number): Promise < User > {
+    }
 
-    const user = await this.repository.findOne(id)
+    async findById(id: number): Promise<User> {
+
+        const user = await this.repository.findOne(id)
         return user;
 
-}
+    }
 
 }
 

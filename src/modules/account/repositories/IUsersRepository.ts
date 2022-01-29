@@ -1,4 +1,4 @@
-import { User } from "../entities/User";
+import { User } from "../models/User";
 
 interface IUsersRepositoryDTO {
     id?: number,
@@ -11,7 +11,7 @@ interface IUsersRepositoryDTO {
 
 interface IUsersRepository {
 
-    create(data: IUsersRepositoryDTO): Promise<void>
+    save(data: IUsersRepositoryDTO): Promise<void>
     findByEmail(email: string):Promise<User>
     findById(id: number):Promise<User>
 }

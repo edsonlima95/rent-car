@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
-
-
+import { AuthenticateUserUseCase } from "../services/authentication/AuthenticateUserUseCase";
 
 class AuthenticateUserController {
 
     
-   async handle(req:Request, res:Response):Promise<Response>{
+   async userAuthentication(req:Request, res:Response):Promise<Response>{
         
         const {email, password} = req.body;
 

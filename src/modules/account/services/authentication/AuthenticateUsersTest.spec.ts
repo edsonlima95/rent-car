@@ -1,6 +1,6 @@
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 import { UsersRespositoryTest } from "@modules/account/repositories/tests/UsersRespositoryTest";
-import { UsersUseCase } from "../createUser/UsersUseCase";
+import { UsersUseCase } from "../user/UsersUseCase";
 import { AppError } from "@errors/AppError";
 
 // Tipagem
