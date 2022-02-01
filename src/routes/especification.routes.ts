@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { EspecificationController } from "@modules/cars/controllers/EspecificationController";
-import { authenticateMiddleware } from "@middlewares/authentication";
+
 import { adminVerify } from "@middlewares/adminVerify";
+import { authenticateMiddleware } from "@middlewares/authenticateMiddleware";
 
 
 const especificationRoutes = Router();

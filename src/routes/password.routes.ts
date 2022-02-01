@@ -1,5 +1,5 @@
 
-import { authenticateMiddleware } from "@middlewares/authentication";
+import { authenticateMiddleware } from "@middlewares/authenticateMiddleware";
 import { UsersContoller } from "@modules/account/controllers/UsersContoller";
 import { Router } from "express";
 

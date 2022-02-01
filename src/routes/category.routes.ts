@@ -4,8 +4,8 @@ import multer from "multer";
 
 
 import { CategoryController } from "@modules/cars/controllers/CategoryController";
-import { authenticateMiddleware } from "@middlewares/authentication";
 import { adminVerify } from "@middlewares/adminVerify";
+import { authenticateMiddleware } from "@middlewares/authenticateMiddleware";
 
 const upload = multer({
     dest: "./tmp"

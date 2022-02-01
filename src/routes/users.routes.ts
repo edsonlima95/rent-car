@@ -3,7 +3,7 @@ import uploadConfig from "@config/upload";
 import multer from 'multer';
 
 import { UsersContoller } from "@modules/account/controllers/UsersContoller";
-import { authenticateMiddleware } from "@middlewares/authentication";
+import { authenticateMiddleware } from "@middlewares/authenticateMiddleware";
 
 const usersController = new UsersContoller();
 const usersRoutes = Router();
