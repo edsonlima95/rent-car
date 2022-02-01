@@ -1,5 +1,4 @@
 import auth from "@config/auth";
-import { UsersTokenRepository } from "@modules/account/repositories/implementatios/UsersTokenRepository";
 import { NextFunction, Request, Response } from "express"
 import { verify } from "jsonwebtoken";
 import { AppError } from "../errors/AppError";

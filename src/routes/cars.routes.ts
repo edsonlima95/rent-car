@@ -4,8 +4,8 @@ import { Router } from "express";
 
 import multer from 'multer';
 import uploadConfig from "@config/upload";
-import { authenticateMiddleware } from "@middlewares/authentication";
 import { adminVerify } from "@middlewares/adminVerify";
+import { authenticateMiddleware } from "@middlewares/authenticateMiddleware";
 
 const carsRoutes = Router();
 
