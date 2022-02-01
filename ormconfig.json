@@ -1,9 +1,9 @@
 {
-    "type": "mysql",
+    "type": "postgres",
     "host": "localhost",
-    "port": 3306,
-    "username": "root",
-    "password": "",
+    "port": 5432,
+    "username": "docker",
+    "password": "ignite",
     "database": "rentx",
     "charset": "utf8mb4",
     "entities": ["./src/modules/**/models/*.ts"],

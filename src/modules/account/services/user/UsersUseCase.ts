@@ -33,10 +33,12 @@ class UsersUseCase {
             throw new AppError("Email already exists")
         }
 
-        const userUpdate = await this.usersRepository.findById(id)
-
-        if(!userUpdate){
-            throw new AppError("Usuário não existe")
+        if(id){   
+            const userUpdate = await this.usersRepository.findById(id)
+    
+            if(!userUpdate){
+                throw new AppError("Usuário não existe")
+            }
         }
 
         const passwordHash = await hash(password,8);
