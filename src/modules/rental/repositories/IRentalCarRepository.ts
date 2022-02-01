@@ -1,17 +1,18 @@
-import { Rental } from "../entities/Rental";
+import { Rental } from "../models/Rental"
+
 
 interface IRentalCarDTO {
-    id?: number,
     car_id: number,
     user_id: number,
     end_date?: Date,
     total?: number,
+    id?: number,
     expected_return_date: Date
 }
 
 interface IRentalCarRepository {
 
-    create(data: IRentalCarDTO): Promise<Rental>
+    save(data: IRentalCarDTO): Promise<Rental>
 
     findById(id: number):Promise<Rental>
 

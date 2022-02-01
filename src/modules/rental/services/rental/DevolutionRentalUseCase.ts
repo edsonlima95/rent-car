@@ -1,6 +1,6 @@
 import { AppError } from "@errors/AppError";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
-import { Rental } from "@modules/rental/entities/Rental";
+import { Rental } from "@modules/rental/models/Rental";
 import { IRentalCarRepository } from "@modules/rental/repositories/IRentalCarRepository";
 import { IDateProvider } from "@shared/container/provider/dateProvider/IDateProvider";
 import { inject, injectable } from "tsyringe";
@@ -26,8 +26,8 @@ class DevolutionRentalUseCase {
             throw new AppError("Aluguel não existe!")
         }
 
-        // Calcula a se houve atraso, e aplica a "multa de atraso".
-
+        // Calcula os dias de atraso, e aplica a "multa diaria"
+     
         const date = this.dateProvide.dateNow()
 
         const daily = this.dateProvide.compareInDays(rental.start_date, date)
@@ -39,7 +39,8 @@ class DevolutionRentalUseCase {
         }
 
 
-        // Calcula os dias de atraso, e aplica a "multa diaria"
+          // Calcula a se houve atraso, e aplica a "multa de atraso".
+
         const daly = this.dateProvide.compareInDays(date, rental.expected_return_date)
 
         // Converte os dias para positivo
@@ -53,7 +54,7 @@ class DevolutionRentalUseCase {
         rental.end_date = this.dateProvide.dateNow()
         rental.total = total
 
-        await this.rentalCarRepository.create(rental)
+        await this.rentalCarRepository.save(rental)
         await this.carsRepository.updateAvailable(rental.car.id, true)
 
         return rental

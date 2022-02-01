@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { ForgotPasswordUseCase } from "../services/forgotPassword/ForgotPasswordUseCase";
 import { ResetUserPasswordUseCase } from "../services/resetPassword/ResetUserPasswordUseCase";
+import { ProfileUseCase } from "../services/user/ProfileUseCase";
 import { UpdateUsersAvatarUseCase } from "../services/user/UpdateUsersAvatarUseCase";
 import { UsersUseCase } from "../services/user/UsersUseCase";
 
@@ -43,6 +44,18 @@ class UsersContoller {
         await updateUsersUseCase.execute({ user_id, avatar_file })
 
         return res.json("Avatar alterado!")
+    }
+
+    async userProfile(req: Request, res: Response):Promise<Response>{
+
+        const {user_id} = req.user
+
+        const profileUseCase = container.resolve(ProfileUseCase)
+
+        const user = await profileUseCase.execute(user_id)
+
+        return res.json(user)
+
     }
 
 

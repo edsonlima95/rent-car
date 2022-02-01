@@ -1,4 +1,4 @@
-import { Rental } from "@modules/rental/entities/Rental";
+import { Rental } from "@modules/rental/models/Rental";
 import { getRepository, Repository } from "typeorm";
 import { IRentalCarDTO, IRentalCarRepository } from "../IRentalCarRepository";
 
@@ -11,9 +11,9 @@ class RentalCarRepository implements IRentalCarRepository {
     }
 
 
-    async create({ car_id, user_id, expected_return_date, id, end_date, total }: IRentalCarDTO): Promise<Rental> {
+    async save({ car_id, user_id, expected_return_date, end_date, total,id }: IRentalCarDTO): Promise<Rental> {
 
-        const rental = this.repository.create({ car_id, user_id, expected_return_date, id, end_date, total })
+        const rental = this.repository.create({ car_id, user_id, expected_return_date, end_date, total,id })
 
         return await this.repository.save(rental)
 
@@ -29,7 +29,6 @@ class RentalCarRepository implements IRentalCarRepository {
 
     async findOpenRentalCarByUser(user_id: number): Promise<Rental> {
         const rentalUser = await this.repository.findOne({ where: { user_id, end_date: null } })
-
         return rentalUser;
     }
 

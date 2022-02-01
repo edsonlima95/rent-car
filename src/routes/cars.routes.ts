@@ -9,21 +9,21 @@ import uploadConfig from "@config/upload";
 
 const carsRoutes = Router();
 
-const uploadAvatar = multer(uploadConfig.upload("./tmp/cars"))
+const uploadFiles = multer(uploadConfig)
 
 
 const carsController = new CarsController()
 
 
-carsRoutes.post("/car", authenticateMiddleware, carsController.save)
+carsRoutes.post("/car", authenticateMiddleware, adminVerify, carsController.save)
 
-carsRoutes.put("/car/:id", authenticateMiddleware, carsController.save)
+carsRoutes.put("/car/:id", authenticateMiddleware, adminVerify, carsController.save)
 
-carsRoutes.get("/cars/availables",authenticateMiddleware, carsController.availableCar)
+carsRoutes.get("/cars/availables", authenticateMiddleware, carsController.availableCar)
 
-carsRoutes.post("/cars/:id", authenticateMiddleware, uploadAvatar.array("files") ,carsController.uploadImages)
+carsRoutes.post("/cars/:id", authenticateMiddleware, adminVerify, uploadFiles.array("files"), carsController.uploadImages)
 
-carsRoutes.post("/especifications/:id",authenticateMiddleware, carsController.saveCarEspecifications)
+carsRoutes.post("/especifications/:id", authenticateMiddleware, adminVerify, carsController.saveCarEspecifications)
 
 export { carsRoutes }
 

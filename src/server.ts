@@ -1,4 +1,6 @@
 import "reflect-metadata"
+//Inicia as variaveis de ambiaente junto com a aplicação
+import "dotenv/config";
 
 import express, { NextFunction, Request, Response } from 'express'
 import "./shared/container"
@@ -15,12 +17,16 @@ import { router } from './routes';
 import swaggerUi = require('swagger-ui-express');
 import swaggerDocument = require('./swagger.json');
 import { AppError } from '@errors/AppError';
+import upload from "@config/upload";
 
 const app = express();
 
 app.use(express.json())
 
 app.use(router);
+
+app.use("/avatar", express.static(`${upload.tmpFolder}/avatar`));
+app.use("/cars", express.static(`${upload.tmpFolder}/cars`));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

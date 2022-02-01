@@ -42,7 +42,8 @@ export class CreateRentalCar1643045130869 implements MigrationInterface {
                 },
                 {
                     name: "total",
-                    type: "numeric"
+                    type: "numeric",
+                    isNullable: true
                 },
                 {
                     name: "createdAt",

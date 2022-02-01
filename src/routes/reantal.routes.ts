@@ -1,21 +1,17 @@
-import { RentalCarsController } from "@modules/rental/useCases/createRental/RentalCarsController";
-import { DevolutionRentalController } from "@modules/rental/useCases/devolutionRental/DevolutionRentalController";
-import { ListUserRentalsController } from "@modules/rental/useCases/listRentalUser/ListUserRentalsController";
+import { RentalController } from "@modules/rental/controllers/RentalCarsController";
 import { Router } from "express";
 import { authenticateMiddleware } from "middlewares/authentication";
 
 const rentalRoutes = Router()
 
 
-const rentalCarsController = new RentalCarsController()
-const devolutionController = new DevolutionRentalController()
-const listUserRentalsController = new ListUserRentalsController()
+const rentalController = new RentalController()
 
-rentalRoutes.post("/rental", authenticateMiddleware, rentalCarsController.handle)
+rentalRoutes.post("/rental", authenticateMiddleware, rentalController.rent)
 
-rentalRoutes.post("/devolution/:id",devolutionController.handle)
+rentalRoutes.post("/devolution/:id",authenticateMiddleware,rentalController.devolution)
 
-rentalRoutes.post("/rentals-user", authenticateMiddleware ,listUserRentalsController.handle)
+rentalRoutes.post("/rentals-user", authenticateMiddleware ,rentalController.listRentals)
 
 
 export { rentalRoutes }

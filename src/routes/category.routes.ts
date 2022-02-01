@@ -13,12 +13,12 @@ const categoriesRoutes = Router();
 
 const categoryController = new CategoryController();
 
-categoriesRoutes.post("/category", authenticateMiddleware ,categoryController.save);
+categoriesRoutes.post("/category", authenticateMiddleware, adminVerify, categoryController.save);
 
-categoriesRoutes.put("/category/:id", authenticateMiddleware ,categoryController.save);
+categoriesRoutes.put("/category/:id", authenticateMiddleware, adminVerify, categoryController.save);
 
-categoriesRoutes.get("/categories", authenticateMiddleware ,categoryController.index);
+categoriesRoutes.get("/categories", authenticateMiddleware, adminVerify, categoryController.index);
 
-categoriesRoutes.post("/category/import", authenticateMiddleware ,upload.single("file"), categoryController.importFromCsv)
+categoriesRoutes.post("/category/import", authenticateMiddleware, adminVerify, upload.single("file"), categoryController.importFromCsv)
 
 export { categoriesRoutes }

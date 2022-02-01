@@ -3,8 +3,9 @@ import { inject, injectable } from "tsyringe";
 import { IRentalCarRepository } from "../../repositories/IRentalCarRepository";
 
 import { IDateProvider } from "@shared/container/provider/dateProvider/IDateProvider";
-import { Rental } from "../../entities/Rental";
+
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
+import { Rental } from "@modules/rental/models/Rental";
 
 
 interface IRequest {
@@ -53,10 +54,10 @@ class RentalCarsUseCase {
         const compar = this.dateProvide.compareInHours(dateNow, expected_return_date)
 
         if (compar > 24) {
-            throw new AppError("A data não pode ser menor que 24H")
+            throw new AppError("A data não pode ser maior que 24H")
         }
 
-        const rental = await this.rentalCarRepository.create({ car_id, user_id, expected_return_date })
+        const rental = await this.rentalCarRepository.save({ car_id, user_id, expected_return_date })
 
 
         await this.carsRepository.updateAvailable(car_id, false)

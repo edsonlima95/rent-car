@@ -1,4 +1,4 @@
-import { Rental } from "@modules/rental/entities/Rental";
+import { Rental } from "@modules/rental/models/Rental";
 import { IRentalCarRepository } from "@modules/rental/repositories/IRentalCarRepository";
 import { inject, injectable } from "tsyringe";
 

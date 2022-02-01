@@ -8,6 +8,10 @@ declare namespace Express {
         file: {
             filename: string
         },
-        files:[]
+        files:[],
     } 
+
+    export interface Error {
+        statusCode: string 
+    }
 }
