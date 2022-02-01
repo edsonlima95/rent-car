@@ -1,7 +1,7 @@
 
+import { authenticateMiddleware } from "@middlewares/authentication";
 import { UsersContoller } from "@modules/account/controllers/UsersContoller";
 import { Router } from "express";
-import { authenticateMiddleware } from "middlewares/authentication";
 
 
 const passwordRoutes = Router();

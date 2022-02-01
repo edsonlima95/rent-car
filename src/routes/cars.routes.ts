@@ -1,11 +1,11 @@
 import { CarsController } from "@modules/cars/controllers/CarsController";
 import { Router } from "express";
-import { adminVerify } from "middlewares/adminVerify";
-import { authenticateMiddleware } from "middlewares/authentication";
 
 
 import multer from 'multer';
 import uploadConfig from "@config/upload";
+import { authenticateMiddleware } from "@middlewares/authentication";
+import { adminVerify } from "@middlewares/adminVerify";
 
 const carsRoutes = Router();
 

@@ -1,6 +1,6 @@
+import { authenticateMiddleware } from "@middlewares/authentication";
 import { RentalController } from "@modules/rental/controllers/RentalCarsController";
 import { Router } from "express";
-import { authenticateMiddleware } from "middlewares/authentication";
 
 const rentalRoutes = Router()
 

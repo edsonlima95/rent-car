@@ -2,8 +2,8 @@ import { Router } from "express";
 import uploadConfig from "@config/upload";
 import multer from 'multer';
 
-import { authenticateMiddleware } from "../middlewares/authentication";
 import { UsersContoller } from "@modules/account/controllers/UsersContoller";
+import { authenticateMiddleware } from "@middlewares/authentication";
 
 const usersController = new UsersContoller();
 const usersRoutes = Router();

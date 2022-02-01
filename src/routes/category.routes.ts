@@ -1,9 +1,11 @@
-import { adminVerify } from 'middlewares/adminVerify';
+
 import { Router } from "express";
 import multer from "multer";
 
-import { authenticateMiddleware } from "../middlewares/authentication";
+
 import { CategoryController } from "@modules/cars/controllers/CategoryController";
+import { authenticateMiddleware } from "@middlewares/authentication";
+import { adminVerify } from "@middlewares/adminVerify";
 
 const upload = multer({
     dest: "./tmp"
