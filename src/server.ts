@@ -14,8 +14,8 @@ import "express-async-errors"
 
 import { router } from './routes';
 
-import swaggerUi = require('swagger-ui-express');
-import swaggerDocument = require('./swagger.json');
+import swaggerUi  from "swagger-ui-express";
+import swaggerDocument from './swagger.json';
 import { AppError } from '@errors/AppError';
 import upload from "@config/upload";
 
