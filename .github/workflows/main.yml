@@ -49,4 +49,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }} 
-          script: cd ~/app/rent-car && npm install && ./node_modules/.bin/typeorm migration:run && sudo pm2 restart rentx_api
+          script: cd ~/app/rent-car && npm install && ./node_modules/.bin/typeorm migration:run && pm2 restart rentx_api
