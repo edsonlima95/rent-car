@@ -55,5 +55,3 @@ jobs:
             npm install
             ./node_modules/.bin/typeorm migration:run
             pm2 restart rentx_api
-      
-     
