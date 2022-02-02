@@ -33,7 +33,6 @@ jobs:
       - name: Build app
         run: npm run build
         
-      - name: Copia os arquivos
       - uses: appleboy/scp-action@master
         with:
             host: ${{ secrets.SSH_HOST }}
@@ -44,7 +43,7 @@ jobs:
             target: "~/app/rent-car" 
             
       - name: Update API
-      - uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
