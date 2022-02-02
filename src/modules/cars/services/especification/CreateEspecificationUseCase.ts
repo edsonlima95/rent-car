@@ -26,10 +26,12 @@ class CreateEspecificationUseCase {
             throw new AppError("Especificação já existe")
         }                   
 
-        const especification = await this.especificationsRepository.findById(id)
-
-        if(!especification){
-            throw new AppError("Especification não existe!")
+        if(id){   
+            const especification = await this.especificationsRepository.findById(id)
+            
+            if(!especification){
+                throw new AppError("Especification não existe!")
+            }
         }
 
        return  await this.especificationsRepository.save({name,description, id});

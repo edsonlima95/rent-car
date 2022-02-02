@@ -25,10 +25,13 @@ class CreateCategoryUseCase {
             throw new AppError("Categoria já existe!")
         }
 
-        const category = await this.categoriesRepositories.findById(id)
+        if(id){
 
-        if(!category){
-            throw new AppError("Categoria não existe!")
+            const category = await this.categoriesRepositories.findById(id)
+            
+            if(!category){
+                throw new AppError("Categoria não existe!")
+            }
         }
     
        return await this.categoriesRepositories.save({name, description, id})

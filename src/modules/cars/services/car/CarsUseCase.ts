@@ -31,10 +31,14 @@ class CarsUseCase {
         fine_amount,
         category_id, especifications, id }: IRequest): Promise<Car> {
 
-        const car = await this.carsRepository.findById(id)
+        if (id) {
 
-        if(!car){
-            throw new AppError("Carro não existe")
+            const car = await this.carsRepository.findById(id)
+
+            if (!car) {
+                throw new AppError("Carro não existe")
+            }
+
         }
 
         return await this.carsRepository.save(
@@ -42,7 +46,7 @@ class CarsUseCase {
 
     }
 
-    
+
 
 }
 
