@@ -1,6 +1,7 @@
-import { User } from "@modules/account/models/User";
-import { Car } from "@modules/cars/models/Car";
+import { Car } from '@modules/cars/models/Car';
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+import { User } from "@modules/account/models/User";
 
 
 @Entity("rentals")

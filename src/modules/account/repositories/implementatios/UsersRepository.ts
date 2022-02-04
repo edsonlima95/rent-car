@@ -10,7 +10,7 @@ class UsersRepository implements IUsersRepository {
     constructor() {
         this.repository = getRepository(User)
     }
-
+    
     async save({
         name,
         email,
@@ -38,6 +38,15 @@ class UsersRepository implements IUsersRepository {
         const user = await this.repository.findOne(id)
         return user;
 
+    }
+
+    async setAdmin(user_id: number, admin: boolean): Promise<void> {
+            await  this.repository
+                        .createQueryBuilder()
+                        .update()
+                        .set({admin})
+                        .where("id = :id",{id: user_id})
+                        .execute()
     }
 
 }

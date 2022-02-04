@@ -1,3 +1,4 @@
+import { adminVerify } from '@middlewares/adminVerify';
 import { Router } from "express";
 import uploadConfig from "@config/upload";
 import multer from 'multer';
@@ -17,5 +18,7 @@ usersRoutes.put("/user/:id", authenticateMiddleware ,usersController.save)
 usersRoutes.patch("/avatar",  authenticateMiddleware, uploadAvatar.single("avatar"), usersController.updateAvatar)
 
 usersRoutes.get("/user/profile",authenticateMiddleware,usersController.userProfile)
+
+usersRoutes.patch("/set-admin/:id",authenticateMiddleware, usersController.setAdmin)
 
 export { usersRoutes }

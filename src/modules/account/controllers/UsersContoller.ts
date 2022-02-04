@@ -3,6 +3,7 @@ import { container } from "tsyringe";
 import { ForgotPasswordUseCase } from "../services/forgotPassword/ForgotPasswordUseCase";
 import { ResetUserPasswordUseCase } from "../services/resetPassword/ResetUserPasswordUseCase";
 import { ProfileUseCase } from "../services/user/ProfileUseCase";
+import { SetAdminUseCase } from "../services/user/SetAdminUseCase";
 import { UpdateUsersAvatarUseCase } from "../services/user/UpdateUsersAvatarUseCase";
 import { UsersUseCase } from "../services/user/UsersUseCase";
 
@@ -81,6 +82,21 @@ class UsersContoller {
         await resetUserPasswordUseCase.execute(String(token), password)
 
         return res.json({"message":"Password alterado com sucesso!"})
+    }
+
+    async setAdmin(req: Request, res:Response):Promise<Response>{
+
+        const {id} = req.params
+        const {admin} = req.body
+
+        const user_id = parseInt(id)
+
+        const setAdminUseCase = container.resolve(SetAdminUseCase)
+
+        await setAdminUseCase.execute(user_id, admin)
+
+        return res.json("O usuário agora é um admin!")
+
     }
 
 }
