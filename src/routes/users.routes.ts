@@ -1,4 +1,5 @@
-import { adminVerify } from '@middlewares/adminVerify';
+import { validate } from '@errors/Validation';
+
 import { Router } from "express";
 import uploadConfig from "@config/upload";
 import multer from 'multer';
@@ -11,7 +12,7 @@ const usersRoutes = Router();
 
 const uploadAvatar = multer(uploadConfig)
 
-usersRoutes.post("/user",usersController.save)
+usersRoutes.post("/user",validate('users'),usersController.save)
 
 usersRoutes.put("/user/:id", authenticateMiddleware ,usersController.save)
 

@@ -27,11 +27,11 @@ class UsersUseCase {
         id
     }: IRequest):Promise<void> {
 
-        const emailExists = await this.usersRepository.findByEmail(email)
+         const emailExists = await this.usersRepository.findByEmail(email)
 
-        if(emailExists && id == null){
-            throw new AppError("Email already exists")
-        }
+         if(emailExists && id == null){
+             throw new AppError("Email already exists")
+         }
 
         if(id){   
             const userUpdate = await this.usersRepository.findById(id)

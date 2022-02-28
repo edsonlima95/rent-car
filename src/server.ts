@@ -2,6 +2,8 @@ import "reflect-metadata"
 //Inicia as variaveis de ambiaente junto com a aplicação
 import "dotenv/config";
 
+import cors from 'cors'
+
 import express, { NextFunction, Request, Response } from 'express'
 import "./shared/container"
 // import "./database"
@@ -22,7 +24,7 @@ import upload from "@config/upload";
 const app = express();
 
 app.use(express.json())
-
+app.use(cors())
 app.use(router);
 
 app.use("/avatar", express.static(`${upload.tmpFolder}/avatar`));

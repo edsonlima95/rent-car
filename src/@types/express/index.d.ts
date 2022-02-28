@@ -11,7 +11,4 @@ declare namespace Express {
         files:[],
     } 
 
-    export interface Error {
-        statusCode: string 
-    }
 }

@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { ForgotPasswordUseCase } from "../services/forgotPassword/ForgotPasswordUseCase";
@@ -18,7 +19,12 @@ class UsersContoller {
         const { id } = req.params
 
         const user_id = id ? parseInt(id) : null
-   
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
         const createUsersUseCase = container.resolve(UsersUseCase)
 
         await createUsersUseCase.execute({
